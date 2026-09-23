@@ -1,46 +1,10 @@
-# NOVA — Real-World Indian Marketplace
+# TaskForge 10/10 UI upgrade
 
-Portfolio-ready full-stack e-commerce project built with React + Vite, Express and SQLite.
+Replace:
+- client/src/App.jsx
+- client/src/main.jsx
+- client/src/styles.css
 
-## Highlights
-- 168 curated products across 14 departments
-- Local deterministic SVG product artwork — no broken external product-photo URLs
-- Indian-first INR pricing with realistic category ranges
-- Working search, categories, subcategories, sorting
-- Favorites and cart persistence
-- Product details with ratings and community comments
-- Add-a-review flow for signed-in users
-- Email OTP auth with development OTP fallback
-- Password auth with bcrypt + JWT
-- Checkout, orders and delivery tracking UI
-- Responsive premium light theme with subtle motion
+This version keeps the existing API contract and adds a real SaaS-style dashboard: overview/Kanban, filtered task queue, timeline, team/invite, settings, global search, notifications, task comments, create/edit/delete, project creation, Socket.IO refresh, responsive mobile UI, loading/empty/error states.
 
-## Run
-### Backend
-```powershell
-cd server
-npm install
-npm run seed
-npm run dev
-```
-Runs on http://localhost:5000
-
-### Frontend
-```powershell
-cd client
-npm install
-npm run dev
-```
-Open the Vite URL, usually http://localhost:5173 or http://localhost:5174.
-
-## Demo
-Email: demo@nova.store
-Password: Nova@123
-
-For real email OTP, configure SMTP values in `server/.env` using `.env.example`.
-
-
-### Media architecture
-Product and reviewer artwork is generated locally during `npm run seed` and served by Express under `/media`. The frontend prefixes local media URLs with the API server origin, so images work correctly when Vite runs on either port 5173 or 5174.
-
-The seed creates 168 products (12 per department), 840 seeded reviews, reviewer avatars, and a local fallback image.
+Your existing invite endpoint is used honestly: if it currently adds an existing account by email, the UI says so rather than pretending it sends email. For a production invite system, add a persistent invitation table with project_id, invited_email, role, token_hash, expires_at, accepted_at, invited_by and created_at, plus server-side RBAC.
